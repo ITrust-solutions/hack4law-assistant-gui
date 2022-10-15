@@ -12,8 +12,8 @@ export class CaseTypePipe implements PipeTransform {
         [CaseType.WNIOSEK_O_STWIERDZENIE_NADPLATY]: 'Wniosek o stwierdzenie nadpłaty',
     }
 
-    transform(value: CaseType): string {
-        return this.caseTypeLabels[value];
+    transform(value?: CaseType): string {
+        return value ? this.caseTypeLabels[value] : '';
     }
 
 }

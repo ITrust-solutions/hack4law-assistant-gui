@@ -1,8 +1,13 @@
 @use '@angular/material' as mat;
+@use 'colors' as colors;
 
 body {
     height: 100%;
     margin: 0;
+}
+
+* {
+  box-sizing: border-box;
 }
 
 @include mat.core();
@@ -18,3 +23,8 @@ $my-theme: mat.define-light-theme((
 ));
 
 @include mat.all-component-themes($my-theme);
+
+.mat-flat-button.mat-accent, .mat-raised-button.mat-accent, .mat-fab.mat-accent, .mat-mini-fab.mat-accent {
+  background-color: colors.$WHITE;
+  color: colors.$GRAPHITE;
+}

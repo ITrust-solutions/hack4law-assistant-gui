@@ -1,6 +1,61 @@
 <loa-header>
-    <h1 top-left>Sprawa <span *ngIf="currentCase?.no">numer {{ currentCase?.no }}</span></h1>
+    <ng-container top-left>
+        <h1>Sprawa <span *ngIf="currentCase?.no">numer {{ currentCase?.no }}</span></h1>
+    </ng-container>
+    <div class="loa-case-route__quick-details" bottom-left>
+        <mat-chip-list><mat-chip>Status: {{ currentCase?.status | loaCaseStatus }}</mat-chip></mat-chip-list>
+
+    </div>
+    <div class="loa-case-route__actions" bottom-right>
+        <button mat-mini-fab>
+            <mat-icon svgIcon="qr-code" (click)="openQRDialog()"></mat-icon>
+        </button>
+    </div>
 </loa-header>
 <div class="loa-case-route__content">
-    <pre>{{ currentCase | json }}</pre>
+    <div class="loa-case-route__column loa-case-route__column_left">
+        <loa-tile class="loa-case-route__basics">
+            <h3 header>Podstawowe informacje</h3>
+            <div class="loa-case-route__basics-body" body>
+                <div class="loa-case-route__point">
+                    <span class="loa-case-route__point-label">Typ sprawy:</span>
+                    <span class="loa-case-route__point-value">{{ currentCase?.type | loaCaseType }}</span>
+                </div>
+                <div class="loa-case-route__point">
+                    <span class="loa-case-route__point-label">Opis:</span>
+                    <span class="loa-case-route__point-value">{{ currentCase?.description }}</span>
+                </div>
+            </div>
+        </loa-tile>
+    </div>
+    <div class="loa-case-route__column loa-case-route__column_right">
+        <loa-tile class="loa-case-route__dates"
+                   icon="calendar_month">
+            <h3 header>Daty</h3>
+            <div class="loa-case-route__dates-body" body>
+                <div class="loa-case-route__point">
+                    <span class="loa-case-route__point-label">Data utworzenia:</span>
+                    <span class="loa-case-route__point-value">{{ currentCase?.createDate | date:'dd-MM-yyyy' }}</span>
+                </div>
+                <div class="loa-case-route__point">
+                    <span class="loa-case-route__point-label">Termin:</span>
+                    <span class="loa-case-route__point-value">{{ currentCase?.deadline | date:'dd-MM-yyyy' }}</span>
+                </div>
+            </div>
+        </loa-tile>
+        <loa-tile class="loa-case-route__attachments"
+                  icon="attachment">
+            <h3 header>Załączniki</h3>
+            <div class="loa-case-route__attachments-body" body>
+                <p>Ta sprawa nie ma jeszcze załączników</p>
+            </div>
+        </loa-tile>
+        <loa-tile class="loa-case-route__notes"
+                  icon="notes">
+            <h3 header>Notatki</h3>
+            <div class="loa-case-route__attachments-body" body>
+                <p>Ta sprawa nie ma jeszcze notatek</p>
+            </div>
+        </loa-tile>
+    </div>
 </div>

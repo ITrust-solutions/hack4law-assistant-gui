@@ -1,0 +1,33 @@
+@use "~src/colors";
+
+:host {
+  width: 100%;
+}
+
+.loa-tile {
+
+  position: relative;
+
+  &__content {
+    margin-left: 20px;
+    background: colors.$WHITE;
+    border-radius: 5px;
+    padding: 1em;
+  }
+
+  &__icon {
+    position: absolute;
+    top: 12px;
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.01);
+    border-radius: 99px;
+    pointer-events: none;
+  }
+
+  &__header {
+    margin-left: calc(20px + 0.5em);
+  }
+
+  &__body {
+    margin-left: calc(20px + 0.5em);
+  }
+}

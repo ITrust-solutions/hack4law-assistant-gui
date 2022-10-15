@@ -1,0 +1,9 @@
+<div class="loa-tile">
+    <div class="loa-tile__icon" *ngIf="icon">
+        <button mat-mini-fab><mat-icon>{{ icon }}</mat-icon></button>
+    </div>
+    <div class="loa-tile__content">
+        <div class="loa-tile__header"><ng-content select="[header]"></ng-content></div>
+        <div class="loa-tile__body"><ng-content select="[body]"></ng-content></div>
+    </div>
+</div>

@@ -7,6 +7,8 @@ export interface Case {
     no: string;
     status: CaseStatus;
     deadline: Date;
+    createDate: Date;
     type: CaseType;
+    description: string;
 }
 

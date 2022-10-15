@@ -1,0 +1,48 @@
+@use "~src/colors";
+
+.loa-case-route {
+
+  &__content {
+    width: 100%;
+    padding: 1em;
+    display: flex;
+    gap: 1em;
+  }
+
+  &__column {
+    display: flex;
+    gap: 1em;
+    flex-direction: column;
+    flex-wrap: wrap;
+
+    &_left {
+      width: 66%;
+    }
+
+    &_right {
+      width: 33%;
+    }
+  }
+
+  &__point {
+    display: flex;
+  }
+
+  &__point-value {
+    flex: 7;
+    text-align: left;
+  }
+
+  &__point-label {
+    flex: 1;
+    text-align: right;
+    font-weight: bold;
+    margin-right: 1em;
+  }
+
+  &__dates-body {
+    .loa-case-route__point-label {
+      flex: 5;
+    }
+  }
+}

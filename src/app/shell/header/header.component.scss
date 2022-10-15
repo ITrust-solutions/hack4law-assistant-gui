@@ -1,7 +1,7 @@
 @use "~src/colors";
 
 :host {
-  --loa-header-height: 35px;
+  --loa-header-height: 40px;
 }
 
 .loa-header {
@@ -9,11 +9,17 @@
   background: var(--loa-header--background, colors.$WHITE);
   padding: var(--loa-header--padding, 15px 30px 25px 45px);
 
-  &__top {
-    height: var(--loa-header__top--height, var(--loa-header-height));
-  }
+  &__row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 
-  &__bottom {
-    height: var(--loa-header__bottom--height, var(--loa-header-height));
+    &_top {
+      height: var(--loa-header__top--height, var(--loa-header-height));
+    }
+
+    &_bottom {
+      height: var(--loa-header__bottom--height, var(--loa-header-height));
+    }
   }
 }

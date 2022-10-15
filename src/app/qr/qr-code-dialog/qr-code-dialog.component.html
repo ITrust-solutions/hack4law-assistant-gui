@@ -1,0 +1,7 @@
+<div class="loa-qr-code-dialog">
+    <h2 mat-dialog-title>{{ data.title }}</h2>
+    <qrcode #qr [qrdata]="data.qrData"></qrcode>
+    <button mat-mini-fab>
+        <mat-icon (click)="downloadQR(qr)">download</mat-icon>
+    </button>
+</div>
