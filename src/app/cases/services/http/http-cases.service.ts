@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { map, mergeMap, Observable, of, throwError } from 'rxjs';
-import { MyCasesProvider } from '../my-cases.provider';
+import { CasesProvider } from '../cases.provider';
 import { Case } from '../../model/case';
 import { HttpClient } from '@angular/common/http';
 import { CaseDTO } from './dto/case.dto';
@@ -15,7 +15,7 @@ import { StartCaseDto } from './dto/start-case.dto';
 import { CaseTaskStatus } from '../../model/case-task-status';
 
 @Injectable()
-export class HttpCasesService implements MyCasesProvider, SingleCaseProvider, CaseTypesProvider, StartCaseProvider {
+export class HttpCasesService implements CasesProvider, SingleCaseProvider, CaseTypesProvider, StartCaseProvider {
 
     protected readonly baseUrl = 'https://hack4law-assistant-service.wittysea-0637102a.westeurope.azurecontainerapps.io/api';
 
@@ -27,14 +27,14 @@ export class HttpCasesService implements MyCasesProvider, SingleCaseProvider, Ca
         return this.httpClient.post<void>(`${this.baseUrl}/assistant/cases/createCase/`, caseToCreate);
     }
 
-    getMyCases(): Observable<Case[]> {
+    getAllCases(): Observable<Case[]> {
         return this.httpClient.get<CaseDTO[]>(`${this.baseUrl}/assistant/cases/findAllCases`).pipe(
             map(dtos => dtos.map(dto => this.mapToCase(dto)))
         );
     }
 
     getSingleCase(searchedId: string): Observable<Case> {
-        return this.getMyCases().pipe(
+        return this.getAllCases().pipe(
             map((cases) => cases.find(({ id }) => `${id}` === searchedId)),
             mergeMap((foundCase) => foundCase ? of(foundCase) : throwError(() => SingleCaseProvider.CASE_NOT_FOUND)),
         );
@@ -91,7 +91,8 @@ export class HttpCasesService implements MyCasesProvider, SingleCaseProvider, Ca
             type: `${dto.caseType}` || '',
             description: dto.description || '',
             status: dto.caseStatus || CaseStatus.NEW,
-            tasks: (dto.caseTaskDtoList || []).map((taskDto) => ({ id: taskDto.id, status: taskDto.taskStatus, description: taskDto.name }))
+            tasks: (dto.caseTaskDtoList || []).map((taskDto) => ({ id: taskDto.id, status: taskDto.taskStatus, description: taskDto.name })),
+            assignedUser: dto.assignedUser || '',
         }
     }
 }

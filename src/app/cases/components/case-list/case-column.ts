@@ -1,0 +1,1 @@
+export type CaseColumn = 'no' | 'type' | 'status' | 'deadline';

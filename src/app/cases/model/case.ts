@@ -4,6 +4,7 @@ import { CaseTask } from './case-task';
 export interface Case {
     id: string;
     no: string;
+    assignedUser: string;
     status: CaseStatus;
     deadline?: Date;
     receiptDate?: Date;

@@ -1,16 +1,16 @@
 import { CalendarEvent } from 'angular-calendar';
 import { map, Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
-import { MyCasesProvider } from './my-cases.provider';
+import { CasesProvider } from './cases.provider';
 import { Case } from '../model/case';
 
 @Injectable()
 export class MyCasesEventsProvider {
-    constructor(protected readonly myCasesProvider: MyCasesProvider) {
+    constructor(protected readonly myCasesProvider: CasesProvider) {
     }
 
     getMyCasesEvents(): Observable<CalendarEvent[]> {
-        return this.myCasesProvider.getMyCases().pipe(
+        return this.myCasesProvider.getAllCases().pipe(
             map((cases) => this.mapCasesToEvents(cases)),
         )
     }

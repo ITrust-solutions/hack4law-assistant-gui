@@ -20,6 +20,10 @@ const routes: Routes = [
         loadComponent: () => import('./cases/routes/create-case/create-case.route').then(component => component.CreateCaseRoute),
     },
     {
+        path: 'unassigned-cases',
+        loadComponent: () => import('./cases/routes/unassigned-cases/unassigned-cases.route').then(component => component.UnassignedCasesRoute),
+    },
+    {
         path: 'archives',
         loadComponent: () => import('./archives/archives.route').then(component => component.ArchivesRoute),
     }
