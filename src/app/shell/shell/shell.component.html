@@ -1,6 +1,10 @@
 <mat-sidenav-container class="loa-shell">
     <mat-sidenav [opened]="true" mode="side" class="loa-shell__navigation">
         <mat-nav-list>
+            <div class="loa-shell__welcome-message" *ngIf="currentUser | async as user">
+                <p (click)="changeUser()">Witaj, {{ user?.firstName }} {{ user?.lastName }}</p>
+                <hr/>
+            </div>
             <a class="loa-shell__navigation-item" mat-list-item routerLink="/my-cases">Moje sprawy</a>
             <a class="loa-shell__navigation-item" mat-list-item routerLink="/archives">Archiwum</a>
             <a class="loa-shell__navigation-item" mat-list-item routerLink="/create-case">Utwórz sprawę</a>

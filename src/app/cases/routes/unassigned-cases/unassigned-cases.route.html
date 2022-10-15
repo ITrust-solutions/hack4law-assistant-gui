@@ -4,7 +4,12 @@
     </loa-header>
     <div class="loa-unassigned-cases-route__content">
         <loa-case-list class="loa-unassigned-cases-route__cases-list"
+                       *ngIf="cases?.length"
+                       (caseSelected)="openPickUserDialog($event)"
                        [data]="cases"></loa-case-list>
+        <div class="loa-unassigned-cases-route__cases-list_empty" *ngIf="cases?.length === 0">
+            Nie ma nieprzypisanych spraw, ciesz się pyszną kawusią lub <a routerLink="/create-case">rozpocznij nową</a>
+        </div>
     </div>
 </div>
 

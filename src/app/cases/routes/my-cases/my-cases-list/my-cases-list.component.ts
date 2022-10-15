@@ -1,6 +1,5 @@
 import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
-import { CasesProvider } from '../../../services/cases.provider';
-import { finalize, takeUntil } from 'rxjs';
+import { finalize, switchMap, takeUntil } from 'rxjs';
 import { Case } from '../../../model/case';
 import { MatTableModule } from '@angular/material/table';
 import { WithDestroy } from '@loa/utils';
@@ -8,6 +7,8 @@ import { DatePipe } from '@angular/common';
 import { MatSort, MatSortModule } from '@angular/material/sort';
 import { CaseStatusPipe } from '../../../pipes/case-status.pipe';
 import { CaseListComponent } from '../../../components/case-list/case-list.component';
+import { MyCasesProvider } from '../../../services/my-cases.provider';
+import { CurrentUserService } from '../../../../user/services/current-user.service';
 
 @Component({
     standalone: true,
@@ -30,15 +31,15 @@ export class MyCasesListComponent extends WithDestroy() implements OnInit {
 
     @Output() caseSelected = new EventEmitter<Case>();
 
-    constructor(protected readonly casesProvider: CasesProvider) {
+    constructor(protected readonly casesProvider: MyCasesProvider,
+                protected readonly userProvider: CurrentUserService) {
         super();
         this.sort = null;
     }
 
     ngOnInit(): void {
-        this.isLoading = true;
-        this.casesProvider.getAllCases().pipe(
-            finalize(() => this.isLoading = false),
+        this.userProvider.getCurrentUserChanges().pipe(
+            switchMap(() => this.casesProvider.getMyCases()),
             takeUntil(this.componentDestroyed),
         ).subscribe({
             next: (cases) => this.myCases = cases,

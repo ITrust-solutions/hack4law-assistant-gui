@@ -13,9 +13,12 @@ import { StartCaseProvider } from '../start-case.provider';
 import { StartCase } from '../../model/start-case';
 import { StartCaseDto } from './dto/start-case.dto';
 import { CaseTaskStatus } from '../../model/case-task-status';
+import { AssignCaseProvider } from '../assign-case.provider';
+import { User } from '../../../user/model/user';
+import { UpdateCaseDto } from './dto/update-case.dto';
 
 @Injectable()
-export class HttpCasesService implements CasesProvider, SingleCaseProvider, CaseTypesProvider, StartCaseProvider {
+export class HttpCasesService implements CasesProvider, SingleCaseProvider, CaseTypesProvider, StartCaseProvider, AssignCaseProvider {
 
     protected readonly baseUrl = 'https://hack4law-assistant-service.wittysea-0637102a.westeurope.azurecontainerapps.io/api';
 
@@ -46,6 +49,20 @@ export class HttpCasesService implements CasesProvider, SingleCaseProvider, Case
         );
     }
 
+    assignUserToCase(cCase: Case, user: User): Observable<void> {
+        const caseDTO: UpdateCaseDto = {
+            caseNumber: cCase.no,
+            deadlineDate: cCase.deadline ? this.mapDate(cCase.deadline) : '',
+            helpingUser: '',
+            caseStatus: cCase.status,
+            description: cCase.description,
+            receiptDate: cCase.receiptDate ? this.mapDate(cCase.receiptDate) : '',
+            assignedUser: user.login,
+        };
+        return this.httpClient.put<void>(`${this.baseUrl}/assistant/cases/updateById/${cCase.id}`, caseDTO);
+    }
+
+
     private mapDate(date: Date): string {
         const month = date.getMonth() < 9 ? `0${date.getMonth() + 1}` : `${date.getMonth()+1}`;
         const day = date.getDay() < 9 ? `0${date.getDay() + 1}` : `${date.getDay() +1}`;
@@ -61,9 +78,9 @@ export class HttpCasesService implements CasesProvider, SingleCaseProvider, Case
             caseNumber: startCase.no,
             deadlineDate: this.mapDate(startCase.deadline!),
             caseDefinitionId: +startCase.type.id,
-            assignedUser: 'jan.kowalski',
+            assignedUser: '',
             filesList: [],
-            helpingUser: 'jan.kowalski',
+            helpingUser: '',
             notesList: [],
             caseTaskDtoList: startCase.type.steps.map((step) => ({ caseDefinitionId: +startCase.type.id, caseStepDefinitionId: +step.id, taskStatus: CaseTaskStatus.NEW })),
         }

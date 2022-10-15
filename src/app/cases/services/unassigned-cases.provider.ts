@@ -10,7 +10,7 @@ export class UnassignedCasesProvider {
 
     getUnassignedCases(): Observable<Case[]> {
         return this.casesProvider.getAllCases().pipe(
-            map((cases) => cases.filter((cCase) => !!cCase.assignedUser))
+            map((cases) => cases.filter((cCase) => !cCase.assignedUser))
         )
     };
 }

@@ -2,8 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { CalendarEvent, CalendarModule } from 'angular-calendar';
 import { MyCasesEventsProvider } from '../../../services/my-cases-events.provider';
 import { WithDestroy } from '@loa/utils';
-import { takeUntil } from 'rxjs';
+import { switchMap, takeUntil } from 'rxjs';
 import { NgForOf, NgIf } from '@angular/common';
+import { CurrentUserService } from '../../../../user/services/current-user.service';
 
 @Component({
     standalone: true,
@@ -24,12 +25,14 @@ export class MyCalendarComponent extends WithDestroy() implements OnInit {
     viewDate = new Date();
     events: CalendarEvent[] = [];
 
-    constructor(protected myCasesEventsProvide: MyCasesEventsProvider) {
+    constructor(protected myCasesEventsProvide: MyCasesEventsProvider,
+                protected currentUserService: CurrentUserService) {
         super();
     }
 
     ngOnInit(): void {
-        this.myCasesEventsProvide.getMyCasesEvents().pipe(
+        this.currentUserService.getCurrentUserChanges().pipe(
+            switchMap(() => this.myCasesEventsProvide.getMyCasesEvents()),
             takeUntil(this.componentDestroyed),
         ).subscribe({
             next: (casesEvents) => this.events = casesEvents,

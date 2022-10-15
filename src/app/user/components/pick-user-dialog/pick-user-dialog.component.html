@@ -1,0 +1,18 @@
+<div class="loa-pick-user-dialog">
+    <h1 mat-dialog-title>{{ pickUserDialog.title }}</h1>
+    <div class="loa-pick-user-dialog__content" mat-dialog-content>
+        <mat-form-field>
+            <mat-label>Wybierz osobę</mat-label>
+            <mat-select [formControl]="userFormControl">
+                <mat-option *ngFor="let user of pickUserDialog.users" [value]="user">{{ user.firstName + ' ' + user.lastName }}</mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+
+    <div class="loa-pick-user-dialog__actions" mat-dialog-actions>
+        <button mat-button [mat-dialog-close]="null">Anuluj</button>
+        <button mat-button
+                [mat-dialog-close]="userFormControl.getRawValue()!"
+                [disabled]="userFormControl.invalid">Zatwierdź</button>
+    </div>
+</div>
