@@ -139,7 +139,7 @@ const caseGenerator = (index: number): Case => ({
     status: pickRandom(Object.values(CaseStatus)),
     no: `Syg. /SP/KB/${index}/`,
     type: pickRandom(caseTypes).name,
-    createDate: new Date(),
+    receiptDate: new Date(),
     description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut eu bibendum diam. Aenean non cursus ipsum. Quisque molestie, tellus sed tempus varius, odio mauris ornare felis, non ullamcorper dolor nibh sit amet enim. Donec varius id nibh ut luctus. Morbi id mi odio. Aenean in sapien lobortis, aliquet ante eget, tincidunt lacus. Nulla eget feugiat nunc. Nullam non sollicitudin ex. Curabitur est ligula, sagittis hendrerit leo sit amet, tincidunt dapibus justo. Curabitur vulputate nulla vel augue vestibulum interdum vel et libero.',
     tasks: pickRandom(caseTypes).steps.map(step => ({id: step.id, status: pickRandom(Object.values(CaseTaskStatus)), description: step.name })),
 })

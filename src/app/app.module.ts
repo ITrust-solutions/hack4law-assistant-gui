@@ -13,7 +13,7 @@ import { environment } from '../environments/environment';
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import firebase from 'firebase/compat/app';
 import { HttpModule } from './cases/services/http/http.module';
-import { MatMomentDateModule } from '@angular/material-moment-adapter';
+import { MatNativeDateModule } from '@angular/material/core';
 
 firebase.initializeApp(environment.firebase);
 
@@ -29,7 +29,7 @@ firebase.initializeApp(environment.firebase);
         AppRoutingModule,
         AngularFirestoreModule,
         MatDialogModule,
-        MatMomentDateModule,
+        MatNativeDateModule,
         CalendarModule.forRoot({
             provide: DateAdapter,
             useFactory: adapterFactory,

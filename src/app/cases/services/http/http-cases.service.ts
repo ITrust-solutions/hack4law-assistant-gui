@@ -9,13 +9,22 @@ import { SingleCaseProvider } from '../single-case.provider';
 import { CaseTypesProvider } from '../case-types.provider';
 import { CaseType } from '../../model/case-type';
 import { CaseTypeDTO } from './dto/case-type.dto';
+import { StartCaseProvider } from '../start-case.provider';
+import { StartCase } from '../../model/start-case';
+import { StartCaseDto } from './dto/start-case.dto';
+import { CaseTaskStatus } from '../../model/case-task-status';
 
 @Injectable()
-export class HttpCasesService implements MyCasesProvider, SingleCaseProvider, CaseTypesProvider {
+export class HttpCasesService implements MyCasesProvider, SingleCaseProvider, CaseTypesProvider, StartCaseProvider {
 
     protected readonly baseUrl = 'https://hack4law-assistant-service.wittysea-0637102a.westeurope.azurecontainerapps.io/api';
 
     constructor(protected readonly httpClient: HttpClient) {
+    }
+
+    startCase(caseToStart: StartCase): Observable<void> {
+        const caseToCreate: StartCaseDto = this.mapToCaseDTO(caseToStart);
+        return this.httpClient.post<void>(`${this.baseUrl}/assistant/cases/createCase/`, caseToCreate);
     }
 
     getMyCases(): Observable<Case[]> {
@@ -37,6 +46,29 @@ export class HttpCasesService implements MyCasesProvider, SingleCaseProvider, Ca
         );
     }
 
+    private mapDate(date: Date): string {
+        const month = date.getMonth() < 9 ? `0${date.getMonth() + 1}` : `${date.getMonth()+1}`;
+        const day = date.getDay() < 9 ? `0${date.getDay() + 1}` : `${date.getDay() +1}`;
+        return `${date.getFullYear()}-${month}-${day}`;
+    }
+
+    private mapToCaseDTO(startCase: StartCase): StartCaseDto {
+        return {
+            key: 'Wniosek',
+            caseStatus: CaseStatus.NEW,
+            description: startCase.description,
+            receiptDate: this.mapDate(startCase.receiptDate!),
+            caseNumber: startCase.no,
+            deadlineDate: this.mapDate(startCase.deadline!),
+            caseDefinitionId: +startCase.type.id,
+            assignedUser: 'jan.kowalski',
+            filesList: [],
+            helpingUser: 'jan.kowalski',
+            notesList: [],
+            caseTaskDtoList: startCase.type.steps.map((step) => ({ caseDefinitionId: +startCase.type.id, caseStepDefinitionId: +step.id, taskStatus: CaseTaskStatus.NEW })),
+        }
+    }
+
     private mapToType(dto: Partial<CaseTypeDTO>): CaseType {
         return {
             id: `${dto.id}` || '',
@@ -54,9 +86,9 @@ export class HttpCasesService implements MyCasesProvider, SingleCaseProvider, Ca
             no: dto.caseNumber || '',
             id: `${dto.id}` || '',
             deadline: dto.deadlineDate ? new Date(dto.deadlineDate) : undefined,
-            createDate: dto.receiptDate ? new Date(dto.receiptDate) : undefined,
+            receiptDate: dto.receiptDate ? new Date(dto.receiptDate) : undefined,
             finishDate: dto.finishDate ? new Date(dto.finishDate) : undefined,
-            type: dto.caseType || '',
+            type: `${dto.caseType}` || '',
             description: dto.description || '',
             status: dto.caseStatus || CaseStatus.NEW,
             tasks: (dto.caseTaskDtoList || []).map((taskDto) => ({ id: taskDto.id, status: taskDto.taskStatus, description: taskDto.name }))
