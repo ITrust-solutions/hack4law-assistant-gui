@@ -1,0 +1,7 @@
+version: '3'
+services:
+
+  service:
+    image: hack4law.azurecr.io/hack4law-assistant-gui:${GUI_VERSION}
+    ports:
+      - "80:80"
