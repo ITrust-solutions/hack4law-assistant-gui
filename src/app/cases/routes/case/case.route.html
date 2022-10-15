@@ -27,6 +27,16 @@
                 </div>
             </div>
         </loa-tile>
+        <loa-tile class="loa-case-route__basics" icon="checklist">
+            <h3 header>Zadania</h3>
+            <div class="loa-case-route__tasks-body" body>
+                <ul class="loa-case-route__tasks" *ngIf="currentCase?.tasks?.length">
+                    <li *ngFor="let task of currentCase?.tasks">
+                        <span class="loa-case-route__task-status">{{ task.status | loaTaskStatus }}: </span>{{ task.description }}
+                    </li>
+                </ul>
+            </div>
+        </loa-tile>
     </div>
     <div class="loa-case-route__column loa-case-route__column_right">
         <loa-tile class="loa-case-route__dates"

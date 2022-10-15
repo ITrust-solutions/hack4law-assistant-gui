@@ -1,4 +1,5 @@
 import { CaseStatus } from './case-status';
+import { CaseTask } from './case-task';
 
 export interface Case {
     id: string;
@@ -9,5 +10,6 @@ export interface Case {
     finishDate?: Date;
     type: string;
     description: string;
+    tasks: CaseTask[];
 }
 

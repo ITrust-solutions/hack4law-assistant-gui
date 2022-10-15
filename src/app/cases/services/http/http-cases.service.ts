@@ -59,6 +59,7 @@ export class HttpCasesService implements MyCasesProvider, SingleCaseProvider, Ca
             type: dto.caseType || '',
             description: dto.description || '',
             status: dto.caseStatus || CaseStatus.NEW,
+            tasks: (dto.caseTaskDtoList || []).map((taskDto) => ({ id: taskDto.id, status: taskDto.taskStatus, description: taskDto.name }))
         }
     }
 }

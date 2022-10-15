@@ -5,7 +5,7 @@ import { WithDestroy } from '@loa/utils';
 import { SingleCaseProvider } from '../../services/single-case.provider';
 import { map, switchMap, takeUntil } from 'rxjs';
 import { Case } from '../../model/case';
-import { DatePipe, JsonPipe, NgIf } from '@angular/common';
+import { DatePipe, JsonPipe, NgForOf, NgIf } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
@@ -14,6 +14,7 @@ import { QrDialogData } from '../../../qr/qr-code-dialog/qr-dialog-data';
 import { TileComponent } from '../../../shell/tile/tile.component';
 import { MatChipsModule } from '@angular/material/chips';
 import { CaseStatusPipe } from '../../pipes/case-status.pipe';
+import { CaseTaskStatusPipe } from '../../pipes/task-status.pipe';
 
 @Component({
     standalone: true,
@@ -30,6 +31,9 @@ import { CaseStatusPipe } from '../../pipes/case-status.pipe';
         MatChipsModule,
         CaseStatusPipe,
         DatePipe,
+        NgForOf,
+        CaseStatusPipe,
+        CaseTaskStatusPipe,
     ]
 })
 export class CaseRoute extends WithDestroy() implements OnInit {
