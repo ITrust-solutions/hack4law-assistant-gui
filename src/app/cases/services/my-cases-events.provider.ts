@@ -20,8 +20,8 @@ export class MyCasesEventsProvider {
     }
 
     private mapCaseToEvents(mappedCase: Case): CalendarEvent[] {
-        return [
+        return mappedCase.deadline ? [
             { title: mappedCase.no, start: mappedCase.deadline, end: mappedCase.deadline },
-        ];
+        ] : [];
     }
 }

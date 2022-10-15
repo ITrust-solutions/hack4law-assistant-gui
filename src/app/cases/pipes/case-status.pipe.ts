@@ -8,6 +8,12 @@ import { CaseStatus } from '../model/case-status';
 export class CaseStatusPipe implements PipeTransform {
 
     caseTypeLabels: { [key in CaseStatus]: string } = {
+        [CaseStatus.ACCEPTED]: 'Zaakceptowana',
+        [CaseStatus.FINISHED]: 'Zakończona',
+        [CaseStatus.IN_PROGRESS]: 'W toku',
+        [CaseStatus.PENDING_ACCEPTANCE]: 'Do akceptacji',
+        [CaseStatus.REJECTED]: 'Odrzucona',
+        [CaseStatus.WAITING_FOR_AUTHORITY]: 'Oczekuje na organ',
         [CaseStatus.NEW]: 'Nowa',
         [CaseStatus.FINISHED]: 'Zakończona',
     }

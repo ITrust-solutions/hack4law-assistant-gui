@@ -6,7 +6,7 @@ import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { WithDestroy } from '@loa/utils';
 import { DatePipe } from '@angular/common';
 import { MatSort, MatSortModule } from '@angular/material/sort';
-import { CaseTypePipe } from '../../../pipes/case-type.pipe';
+import { CaseStatusPipe } from '../../../pipes/case-status.pipe';
 
 @Component({
     standalone: true,
@@ -16,8 +16,8 @@ import { CaseTypePipe } from '../../../pipes/case-type.pipe';
     imports: [
         MatTableModule,
         DatePipe,
-        CaseTypePipe,
-        MatSortModule
+        MatSortModule,
+        CaseStatusPipe
     ]
 })
 export class MyCasesListComponent extends WithDestroy() implements OnInit, AfterViewInit {

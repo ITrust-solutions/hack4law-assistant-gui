@@ -14,7 +14,6 @@ import { QrCodeDialogComponent } from '../../../qr/qr-code-dialog/qr-code-dialog
 import { QrDialogData } from '../../../qr/qr-code-dialog/qr-dialog-data';
 import { TileComponent } from '../../../shell/tile/tile.component';
 import { MatChipsModule } from '@angular/material/chips';
-import { CaseTypePipe } from '../../pipes/case-type.pipe';
 import { CaseStatusPipe } from '../../pipes/case-status.pipe';
 
 @Component({
@@ -30,7 +29,6 @@ import { CaseStatusPipe } from '../../pipes/case-status.pipe';
         MatButtonModule,
         TileComponent,
         MatChipsModule,
-        CaseTypePipe,
         CaseStatusPipe,
         DatePipe,
     ],

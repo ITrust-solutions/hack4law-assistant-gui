@@ -3,8 +3,6 @@ import { Injectable } from '@angular/core';
 import { Observable, of, throwError } from 'rxjs';
 import { Case } from '../../model/case';
 import { CaseStatus } from '../../model/case-status';
-import { CasePriority } from '../../model/case-priority';
-import { CaseType } from '../../model/case-type';
 import { SingleCaseProvider } from '../single-case.provider';
 
 
@@ -26,12 +24,17 @@ const randomDays = (range: number) => {
     return result;
 }
 
+const caseTypes: string[] = [
+    'Przeksztacenie prawa wieczystego użytkowania we własność',
+    'Wniosek o stwierdzenie nadpłaty',
+]
+
 const caseGenerator = (index: number): Case => ({
     id: crypto.randomUUID(),
     deadline: randomDays(7),
     status: pickRandom(Object.values(CaseStatus)),
     no: `Syg. /SP/KB/${index}/`,
-    type: pickRandom(Object.values(CaseType)),
+    type: pickRandom(caseTypes),
     createDate: new Date(),
     description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut eu bibendum diam. Aenean non cursus ipsum. Quisque molestie, tellus sed tempus varius, odio mauris ornare felis, non ullamcorper dolor nibh sit amet enim. Donec varius id nibh ut luctus. Morbi id mi odio. Aenean in sapien lobortis, aliquet ante eget, tincidunt lacus. Nulla eget feugiat nunc. Nullam non sollicitudin ex. Curabitur est ligula, sagittis hendrerit leo sit amet, tincidunt dapibus justo. Curabitur vulputate nulla vel augue vestibulum interdum vel et libero.'
 })

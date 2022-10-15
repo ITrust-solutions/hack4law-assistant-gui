@@ -19,11 +19,11 @@
             <div class="loa-case-route__basics-body" body>
                 <div class="loa-case-route__point">
                     <span class="loa-case-route__point-label">Typ sprawy:</span>
-                    <span class="loa-case-route__point-value">{{ currentCase?.type | loaCaseType }}</span>
+                    <span class="loa-case-route__point-value">{{ currentCase?.type }}</span>
                 </div>
                 <div class="loa-case-route__point">
                     <span class="loa-case-route__point-label">Opis:</span>
-                    <span class="loa-case-route__point-value">{{ currentCase?.description }}</span>
+                    <span class="loa-case-route__point-value">{{ currentCase?.description || 'Brak' }}</span>
                 </div>
             </div>
         </loa-tile>
