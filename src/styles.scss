@@ -1,5 +1,10 @@
 @use '@angular/material' as mat;
 
+body {
+    height: 100%;
+    margin: 0;
+}
+
 @include mat.core();
 
 $my-primary: mat.define-palette(mat.$indigo-palette, 500);

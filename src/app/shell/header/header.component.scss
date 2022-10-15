@@ -1,0 +1,19 @@
+@use "~src/colors";
+
+:host {
+  --loa-header-height: 35px;
+}
+
+.loa-header {
+  filter: drop-shadow(0px 2px 15px rgba(0, 0, 0, 0.2));
+  background: var(--loa-header--background, colors.$WHITE);
+  padding: var(--loa-header--padding, 15px 30px 25px 45px);
+
+  &__top {
+    height: var(--loa-header__top--height, var(--loa-header-height));
+  }
+
+  &__bottom {
+    height: var(--loa-header__bottom--height, var(--loa-header-height));
+  }
+}

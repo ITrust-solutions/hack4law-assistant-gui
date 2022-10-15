@@ -3,8 +3,9 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
+import { ShellComponent } from './shell/shell/shell.component';
+import { AppRoutingModule } from './app.routing.module';
+
 
 @NgModule({
   declarations: [
@@ -13,8 +14,8 @@ import { MatInputModule } from '@angular/material/input';
     imports: [
         BrowserModule,
         BrowserAnimationsModule,
-        MatFormFieldModule,
-        MatInputModule
+        ShellComponent,
+        AppRoutingModule,
     ],
   providers: [],
   bootstrap: [AppComponent]

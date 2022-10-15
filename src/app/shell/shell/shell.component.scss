@@ -1,0 +1,15 @@
+@use "src/colors";
+
+.loa-shell {
+  height: 100vh;
+
+  &__navigation {
+    width: 300px;
+    background-color: colors.$GRAPHITE;
+    color: colors.$IVORY;
+  }
+
+  &__navigation-item {
+    color: colors.$IVORY;
+  }
+}
