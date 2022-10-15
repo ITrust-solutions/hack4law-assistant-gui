@@ -7,6 +7,8 @@ import { ShellComponent } from './shell/shell/shell.component';
 import { AppRoutingModule } from './app.routing.module';
 import { HttpClientModule } from '@angular/common/http';
 import { MatDialogModule } from '@angular/material/dialog';
+import { CalendarModule, DateAdapter } from 'angular-calendar';
+import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 
 
 @NgModule({
@@ -20,6 +22,10 @@ import { MatDialogModule } from '@angular/material/dialog';
         ShellComponent,
         AppRoutingModule,
         MatDialogModule,
+        CalendarModule.forRoot({
+            provide: DateAdapter,
+            useFactory: adapterFactory,
+        }),
     ],
   providers: [],
   bootstrap: [AppComponent]

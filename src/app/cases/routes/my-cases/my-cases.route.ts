@@ -5,13 +5,15 @@ import { MyCasesProvider } from '../../services/my-cases.provider';
 import { MyCasesStubService } from '../../services/stub/my-cases-stub.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Case } from '../../model/case';
+import { MyCalendarComponent } from './my-calendar/my-calendar.component';
 
 @Component({
     standalone: true,
     templateUrl: './my-cases.route.html',
     imports: [
         HeaderComponent,
-        MyCasesListComponent
+        MyCasesListComponent,
+        MyCalendarComponent
     ],
     providers: [
         { provide: MyCasesProvider, useClass: MyCasesStubService },

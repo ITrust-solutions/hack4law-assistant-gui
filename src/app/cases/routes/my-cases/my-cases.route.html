@@ -1,8 +1,9 @@
 <div class="loa-my-cases-route">
     <loa-header>
-        <h1 top-left>My Cases</h1>
+        <h1 top-left>Moje sprawy</h1>
     </loa-header>
     <div class="loa-my-cases-route__content">
+        <loa-my-calendar class="loa-my-cases-route__calendar"></loa-my-calendar>
         <loa-my-cases-list class="loa-my-cases-route__cases-list"
                            (caseSelected)="redirectToCase($event)"></loa-my-cases-list>
     </div>
