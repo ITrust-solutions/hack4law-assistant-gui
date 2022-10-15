@@ -3,7 +3,6 @@ import { CaseType } from './case-type';
 
 export interface Case {
     id: string;
-    name: string;
     no: string;
     status: CaseStatus;
     deadline: Date;

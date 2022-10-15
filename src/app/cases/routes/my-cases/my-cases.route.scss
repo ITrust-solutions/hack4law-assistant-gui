@@ -1,0 +1,17 @@
+.loa-my-cases-route {
+
+  &__content {
+    display: flex;
+    gap: 1em;
+    padding: 1em;
+  }
+
+  &__cases-list {
+    display: block;
+    width: 50%;
+  }
+
+  &__calendar {
+    width: 50%;
+  }
+}

@@ -23,7 +23,7 @@ import { CaseTypePipe } from '../../../pipes/case-type.pipe';
 export class MyCasesListComponent extends WithDestroy() implements OnInit, AfterViewInit {
     myCases: MatTableDataSource<Case> = new MatTableDataSource<Case>([]);
     isLoading: boolean = false;
-    displayedColumns = ['no', 'type', 'name', 'status', 'deadline'];
+    displayedColumns = ['no', 'type', 'status', 'deadline'];
 
     @ViewChild(MatSort) sort: MatSort | null;
 

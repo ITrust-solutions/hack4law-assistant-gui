@@ -1,5 +1,6 @@
 @use '@angular/material' as mat;
 @use 'colors' as colors;
+@import "../node_modules/angular-calendar/css/angular-calendar.css";
 
 body {
     height: 100%;

@@ -28,10 +28,9 @@ const randomDays = (range: number) => {
 
 const caseGenerator = (index: number): Case => ({
     id: crypto.randomUUID(),
-    name: `${pickRandom(prefixes)} Sprawa ${pickRandom(suffixes)}`,
     deadline: randomDays(7),
     status: pickRandom(Object.values(CaseStatus)),
-    no: `No. ${index}`,
+    no: `Syg. /SP/KB/${index}/`,
     type: pickRandom(Object.values(CaseType)),
     createDate: new Date(),
     description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut eu bibendum diam. Aenean non cursus ipsum. Quisque molestie, tellus sed tempus varius, odio mauris ornare felis, non ullamcorper dolor nibh sit amet enim. Donec varius id nibh ut luctus. Morbi id mi odio. Aenean in sapien lobortis, aliquet ante eget, tincidunt lacus. Nulla eget feugiat nunc. Nullam non sollicitudin ex. Curabitur est ligula, sagittis hendrerit leo sit amet, tincidunt dapibus justo. Curabitur vulputate nulla vel augue vestibulum interdum vel et libero.'
