@@ -26,6 +26,10 @@ const routes: Routes = [
     {
         path: 'archives',
         loadComponent: () => import('./archives/archives.route').then(component => component.ArchivesRoute),
+    },
+    {
+        path: 'archives/:id',
+        loadComponent: () => import('./cases/routes/case/case.route').then(component => component.CaseRoute)
     }
 ];
 
