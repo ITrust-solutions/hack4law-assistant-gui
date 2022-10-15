@@ -1,0 +1,9 @@
+.loa-download-ksef-dialog {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  &__form-field {
+    width: 400px;
+  }
+}

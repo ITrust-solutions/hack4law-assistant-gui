@@ -15,6 +15,8 @@ import { TileComponent } from '../../../shell/tile/tile.component';
 import { MatChipsModule } from '@angular/material/chips';
 import { CaseStatusPipe } from '../../pipes/case-status.pipe';
 import { CaseTaskStatusPipe } from '../../pipes/task-status.pipe';
+import { GetKsefInvoiceProvider } from '../../services/get-ksef-invoice.provider';
+import { DownloadKsefDialogComponent } from '../../../ksef/download-ksef-dialog/download-ksef-dialog.component';
 
 @Component({
     standalone: true,
@@ -43,7 +45,8 @@ export class CaseRoute extends WithDestroy() implements OnInit {
 
     constructor(protected readonly activatedRoute: ActivatedRoute,
                 private readonly dialog: MatDialog,
-                protected readonly caseProvider: SingleCaseProvider) {
+                protected readonly caseProvider: SingleCaseProvider,
+                protected readonly ksefProvider: GetKsefInvoiceProvider) {
         super();
     }
 
@@ -66,6 +69,16 @@ export class CaseRoute extends WithDestroy() implements OnInit {
             };
             this.dialog.open(QrCodeDialogComponent, { data: qrDialogData })
         }
+    }
+
+    downloadKsefInvoice(): void {
+        this.dialog.open(DownloadKsefDialogComponent)
+            .afterClosed()
+            .subscribe((invoiceNumber) => {
+                if (invoiceNumber) {
+                    this.ksefProvider.getKsefInvoice(invoiceNumber).subscribe();
+                }
+            })
     }
 
 }
