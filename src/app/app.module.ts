@@ -7,7 +7,11 @@ import { ShellComponent } from './shell/shell/shell.component';
 import { AppRoutingModule } from './app.routing.module';
 import { HttpClientModule } from '@angular/common/http';
 import { MatDialogModule } from '@angular/material/dialog';
+import { environment } from '../environments/environment';
+import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
+import firebase from 'firebase/compat/app';
 
+firebase.initializeApp(environment.firebase);
 
 @NgModule({
   declarations: [
@@ -19,6 +23,7 @@ import { MatDialogModule } from '@angular/material/dialog';
         HttpClientModule,
         ShellComponent,
         AppRoutingModule,
+        AngularFirestoreModule,
         MatDialogModule,
     ],
   providers: [],
