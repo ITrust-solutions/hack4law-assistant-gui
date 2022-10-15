@@ -52,7 +52,7 @@ export class HttpCasesService implements MyCasesProvider, SingleCaseProvider, Ca
     private mapToCase(dto: Partial<CaseDTO>): Case {
         return {
             no: dto.caseNumber || '',
-            id: dto.id || '',
+            id: `${dto.id}` || '',
             deadline: dto.deadlineDate ? new Date(dto.deadlineDate) : undefined,
             createDate: dto.receiptDate ? new Date(dto.receiptDate) : undefined,
             finishDate: dto.finishDate ? new Date(dto.finishDate) : undefined,

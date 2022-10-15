@@ -20,6 +20,7 @@ import { MatButtonModule } from '@angular/material/button';
 export class QrCodeDialogComponent {
 
     constructor(@Inject(MAT_DIALOG_DATA) public readonly data: QrDialogData) {
+        console.log('data', data);
     }
 
     downloadQR(component: QRCodeComponent) {

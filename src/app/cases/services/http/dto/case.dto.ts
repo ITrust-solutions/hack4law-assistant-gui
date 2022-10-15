@@ -4,7 +4,7 @@ import { CaseTaskDTO } from './case-task.dto';
 import { CaseNoteDTO } from './case-note.dto';
 
 export interface CaseDTO {
-    id: string;
+    id: number;
     caseType: string;
     finishDate: string;
     caseNumber: string;
