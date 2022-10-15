@@ -1,12 +1,13 @@
-import { AfterViewInit, Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
-import { MyCasesProvider } from '../../../services/my-cases.provider';
+import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
+import { CasesProvider } from '../../../services/cases.provider';
 import { finalize, takeUntil } from 'rxjs';
 import { Case } from '../../../model/case';
-import { MatTableDataSource, MatTableModule } from '@angular/material/table';
+import { MatTableModule } from '@angular/material/table';
 import { WithDestroy } from '@loa/utils';
 import { DatePipe } from '@angular/common';
 import { MatSort, MatSortModule } from '@angular/material/sort';
 import { CaseStatusPipe } from '../../../pipes/case-status.pipe';
+import { CaseListComponent } from '../../../components/case-list/case-list.component';
 
 @Component({
     standalone: true,
@@ -17,36 +18,32 @@ import { CaseStatusPipe } from '../../../pipes/case-status.pipe';
         MatTableModule,
         DatePipe,
         MatSortModule,
-        CaseStatusPipe
+        CaseStatusPipe,
+        CaseListComponent
     ]
 })
-export class MyCasesListComponent extends WithDestroy() implements OnInit, AfterViewInit {
-    myCases: MatTableDataSource<Case> = new MatTableDataSource<Case>([]);
+export class MyCasesListComponent extends WithDestroy() implements OnInit {
     isLoading: boolean = false;
-    displayedColumns = ['no', 'type', 'status', 'deadline'];
 
+    myCases: Case[] = [];
     @ViewChild(MatSort) sort: MatSort | null;
 
     @Output() caseSelected = new EventEmitter<Case>();
 
-    constructor(protected readonly casesProvider: MyCasesProvider) {
+    constructor(protected readonly casesProvider: CasesProvider) {
         super();
         this.sort = null;
     }
 
     ngOnInit(): void {
         this.isLoading = true;
-        this.casesProvider.getMyCases().pipe(
+        this.casesProvider.getAllCases().pipe(
             finalize(() => this.isLoading = false),
             takeUntil(this.componentDestroyed),
         ).subscribe({
-            next: (cases) => this.myCases.data = cases,
-            error: () => this.myCases.data = []
+            next: (cases) => this.myCases = cases,
+            error: () => this.myCases = []
         })
-    }
-
-    ngAfterViewInit(): void {
-        this.myCases.sort = this.sort;
     }
 
     emitSelectedCase(selectedCase: Case): void {

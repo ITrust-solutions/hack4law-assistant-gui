@@ -1,4 +1,4 @@
-import { MyCasesProvider } from '../my-cases.provider';
+import { CasesProvider } from '../cases.provider';
 import { Injectable } from '@angular/core';
 import { Observable, of, throwError } from 'rxjs';
 import { Case } from '../../model/case';
@@ -151,8 +151,8 @@ for(let i = 0; i < 30; i++) {
 }
 
 @Injectable()
-export class MyCasesStubService implements MyCasesProvider, SingleCaseProvider, CaseTypesProvider {
-    getMyCases(): Observable<Case[]> {
+export class MyCasesStubService implements CasesProvider, SingleCaseProvider, CaseTypesProvider {
+    getAllCases(): Observable<Case[]> {
         return of(cases);
     }
 
