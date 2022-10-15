@@ -6,9 +6,12 @@ import { HttpClient } from '@angular/common/http';
 import { CaseDTO } from './dto/case.dto';
 import { CaseStatus } from '../../model/case-status';
 import { SingleCaseProvider } from '../single-case.provider';
+import { CaseTypesProvider } from '../case-types.provider';
+import { CaseType } from '../../model/case-type';
+import { CaseTypeDTO } from './dto/case-type.dto';
 
 @Injectable()
-export class HttpCasesService implements MyCasesProvider, SingleCaseProvider {
+export class HttpCasesService implements MyCasesProvider, SingleCaseProvider, CaseTypesProvider {
 
     protected readonly baseUrl = 'https://hack4law-assistant-service.wittysea-0637102a.westeurope.azurecontainerapps.io/api';
 
@@ -26,6 +29,24 @@ export class HttpCasesService implements MyCasesProvider, SingleCaseProvider {
             map((cases) => cases.find(({ id }) => `${id}` === searchedId)),
             mergeMap((foundCase) => foundCase ? of(foundCase) : throwError(() => SingleCaseProvider.CASE_NOT_FOUND)),
         );
+    }
+
+    getCaseTypes(): Observable<CaseType[]> {
+        return this.httpClient.get<CaseTypeDTO[]>(`${this.baseUrl}/assistant/cases/findAllCaseDefinitions`).pipe(
+            map(dtos => dtos.map(dto => this.mapToType(dto))),
+        );
+    }
+
+    private mapToType(dto: Partial<CaseTypeDTO>): CaseType {
+        return {
+            id: `${dto.id}` || '',
+            name: dto.name || '',
+            steps: (dto.caseStepDefinitionDtoList || []).map((stepDTO) => ({
+                id: `${stepDTO.id}`,
+                name: stepDTO.name || '',
+                key: stepDTO.key || ''
+            }))
+        }
     }
 
     private mapToCase(dto: Partial<CaseDTO>): Case {
