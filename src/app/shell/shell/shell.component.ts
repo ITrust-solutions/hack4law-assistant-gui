@@ -30,7 +30,7 @@ export class ShellComponent {
             .onSnapshot((doc) => {
                 doc.docChanges().forEach(caseScanned => {
                     if (caseScanned.type === "added") {
-                        this.dialog.open(OpenCaseDialogComponent, { data: caseScanned.doc.id })
+                        this.dialog.open(OpenCaseDialogComponent, { data: caseScanned.doc.data()['id'] })
                             .afterClosed()
                             .subscribe(() => {
                                 this.db.collection("case-qr").doc(caseScanned.doc.id).delete();
