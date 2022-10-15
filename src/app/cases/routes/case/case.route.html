@@ -1,3 +1,6 @@
 <loa-header>
-    <h1 top-left>Cases</h1>
+    <h1 top-left>Sprawa <span *ngIf="currentCase?.no">numer {{ currentCase?.no }}</span></h1>
 </loa-header>
+<div class="loa-case-route__content">
+    <pre>{{ currentCase | json }}</pre>
+</div>
