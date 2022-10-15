@@ -5,11 +5,12 @@ import { CaseNoteDTO } from './case-note.dto';
 
 export interface CaseDTO {
     id: string;
-    caseDefinitionId: string;
+    caseType: string;
+    finishDate: string;
     caseNumber: string;
     description: string;
-    receiptDate: Date;
-    deadlineDate: Date;
+    receiptDate: string;
+    deadlineDate: string;
     caseStatus: CaseStatus;
     assignedUser: string;
     helpingUser: string;

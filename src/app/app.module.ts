@@ -12,6 +12,7 @@ import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { environment } from '../environments/environment';
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import firebase from 'firebase/compat/app';
+import { HttpModule } from './cases/services/http/http.module';
 
 firebase.initializeApp(environment.firebase);
 
@@ -31,6 +32,7 @@ firebase.initializeApp(environment.firebase);
             provide: DateAdapter,
             useFactory: adapterFactory,
         }),
+        HttpModule,
     ],
   providers: [],
   bootstrap: [AppComponent]

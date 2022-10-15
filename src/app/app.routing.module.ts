@@ -16,6 +16,10 @@ const routes: Routes = [
         loadComponent: () => import('./cases/routes/case/case.route').then(component => component.CaseRoute),
     },
     {
+        path: 'create-case',
+        loadComponent: () => import('./cases/routes/create-case/create-case.route').then(component => component.CreateCaseRoute),
+    },
+    {
         path: 'archives',
         loadComponent: () => import('./archives/archives.route').then(component => component.ArchivesRoute),
     }

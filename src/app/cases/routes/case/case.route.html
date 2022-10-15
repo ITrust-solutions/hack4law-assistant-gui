@@ -41,6 +41,10 @@
                     <span class="loa-case-route__point-label">Termin:</span>
                     <span class="loa-case-route__point-value">{{ currentCase?.deadline | date:'dd-MM-yyyy' }}</span>
                 </div>
+                <div class="loa-case-route__point">
+                    <span class="loa-case-route__point-label">Data zakończenia:</span>
+                    <span class="loa-case-route__point-value">{{ currentCase?.finishDate | date:'dd-MM-yyyy' }}</span>
+                </div>
             </div>
         </loa-tile>
         <loa-tile class="loa-case-route__attachments"

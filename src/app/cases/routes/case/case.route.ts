@@ -6,7 +6,6 @@ import { SingleCaseProvider } from '../../services/single-case.provider';
 import { map, switchMap, takeUntil } from 'rxjs';
 import { Case } from '../../model/case';
 import { DatePipe, JsonPipe, NgIf } from '@angular/common';
-import { MyCasesStubService } from '../../services/stub/my-cases-stub.service';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
@@ -31,9 +30,6 @@ import { CaseStatusPipe } from '../../pipes/case-status.pipe';
         MatChipsModule,
         CaseStatusPipe,
         DatePipe,
-    ],
-    providers: [
-        { provide: SingleCaseProvider, useClass: MyCasesStubService }
     ]
 })
 export class CaseRoute extends WithDestroy() implements OnInit {

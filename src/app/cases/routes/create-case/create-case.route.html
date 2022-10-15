@@ -1,0 +1,41 @@
+<loa-header>
+    <h1 top-left>Utwórz sprawę</h1>
+</loa-header>
+<div class="loa-create-case-route">
+    <loa-tile>
+        <form class="loa-create-case-route__form"
+              body
+              [formGroup]="caseGroup">
+            <mat-form-field>
+                <mat-label>Sygnatura</mat-label>
+                <input matInput [formControl]="caseGroup.controls.no">
+                <mat-error>
+                    <loa-form-errors [errors]="caseGroup.controls.type.errors"></loa-form-errors>
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Typ sprawy</mat-label>
+                <mat-select [formControl]="caseGroup.controls.type">
+                    <mat-option *ngFor="let caseType of caseTypes" [value]="caseType.id">{{ caseType.name }}</mat-option>
+                </mat-select>
+                <mat-error>
+                    <loa-form-errors [errors]="caseGroup.controls.type.errors"></loa-form-errors>
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Termin</mat-label>
+                <input matInput [formControl]="caseGroup.controls.deadline" [matDatepicker]="picker">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+            <mat-form-field>
+                <mat-label>Opis</mat-label>
+                <textarea matInput [formControl]="caseGroup.controls.description"></textarea>
+                <mat-error>
+                    <loa-form-errors [errors]="caseGroup.controls.type.errors"></loa-form-errors>
+                </mat-error>
+            </mat-form-field>
+        </form>
+    </loa-tile>
+
+</div>

@@ -1,5 +1,5 @@
 export enum CaseStatus {
-    NEW = 'NOWA',
+    NEW = 'NIEZACZETA',
     IN_PROGRESS = 'W_TOKU',
     WAITING_FOR_AUTHORITY = 'OCZEKUJE_NA_INNY_ORGAN',
     REJECTED = 'ODRZUCONA',

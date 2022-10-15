@@ -10,7 +10,7 @@ import { SingleCaseProvider } from '../single-case.provider';
 @Injectable()
 export class HttpCasesService implements MyCasesProvider, SingleCaseProvider {
 
-    protected readonly baseUrl = '';
+    protected readonly baseUrl = 'https://hack4law-assistant-service.wittysea-0637102a.westeurope.azurecontainerapps.io/api';
 
     constructor(protected readonly httpClient: HttpClient) {
     }
@@ -23,20 +23,19 @@ export class HttpCasesService implements MyCasesProvider, SingleCaseProvider {
 
     getSingleCase(searchedId: string): Observable<Case> {
         return this.getMyCases().pipe(
-            map((cases) => cases.find(({ id }) => id === searchedId)),
+            map((cases) => cases.find(({ id }) => `${id}` === searchedId)),
             mergeMap((foundCase) => foundCase ? of(foundCase) : throwError(() => SingleCaseProvider.CASE_NOT_FOUND)),
         );
     }
-
-
 
     private mapToCase(dto: Partial<CaseDTO>): Case {
         return {
             no: dto.caseNumber || '',
             id: dto.id || '',
-            deadline: dto.deadlineDate,
-            createDate: dto.receiptDate,
-            type: dto.caseDefinitionId || '',
+            deadline: dto.deadlineDate ? new Date(dto.deadlineDate) : undefined,
+            createDate: dto.receiptDate ? new Date(dto.receiptDate) : undefined,
+            finishDate: dto.finishDate ? new Date(dto.finishDate) : undefined,
+            type: dto.caseType || '',
             description: dto.description || '',
             status: dto.caseStatus || CaseStatus.NEW,
         }

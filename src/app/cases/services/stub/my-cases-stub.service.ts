@@ -4,6 +4,8 @@ import { Observable, of, throwError } from 'rxjs';
 import { Case } from '../../model/case';
 import { CaseStatus } from '../../model/case-status';
 import { SingleCaseProvider } from '../single-case.provider';
+import { CaseTypesProvider } from '../case-types.provider';
+import { CaseType } from '../../model/case-type';
 
 
 const prefixes: string[] = [
@@ -24,9 +26,110 @@ const randomDays = (range: number) => {
     return result;
 }
 
-const caseTypes: string[] = [
-    'Przeksztacenie prawa wieczystego użytkowania we własność',
-    'Wniosek o stwierdzenie nadpłaty',
+const caseTypes: CaseType[] = [
+    {
+        name: 'Przeksztacenie prawa wieczystego użytkowania we własność',
+        id: crypto.randomUUID(),
+        steps: [
+            {
+                name: 'Zweryfikować adres z decyzją',
+                key: '0',
+                id: '0'
+            },
+            {
+                name: 'Potwierdzić podpisy na wniosku z księgą wieczystą',
+                key: '1',
+                id: '1',
+            },
+            {
+                name: 'Weryfikacja pełnomocnictwa',
+                key: '2',
+                id: '2'
+            },
+            {
+                name: 'Obliczenie kwoty do wpłaty',
+                key: '3',
+                id: '3'
+            },
+            {
+                name: 'Zweryfikowanie prowadzenia działalności gospodarczej',
+                key: '4',
+                id: '4'
+            },
+            {
+                name: 'Zweryfikowanie wniosku o pomoc publiczną',
+                key: '5',
+                id: '5',
+            },
+            {
+                name: 'Przygotowanie decyzji',
+                key: '6',
+                id: '6',
+            },
+            {
+                name: 'Weryfikacja wpłaty',
+                key: '7',
+                id: '7',
+            },
+            {
+                name: 'Zakończenie procedury',
+                key: '8',
+                id: '8',
+            },
+        ]
+    },
+
+    {
+        name: 'Wniosek o stwierdzenie nadpaty',
+        id: crypto.randomUUID(),
+        steps: [
+            {
+                name: 'Zweryfikować prawidłowość podpisów',
+                key: '0',
+                id: '0'
+            },
+            {
+                name: 'Weryfikacja pełnomocnictwa',
+                key: '1',
+                id: '1'
+            },
+            {
+                name: 'Weryfikacja terminu przedawnienia',
+                key: '2',
+                id: '2'
+            },
+            {
+                name: 'Weryfikacja załaczników do wniosku',
+                key: '3',
+                id: '3'
+            },
+            {
+                name: 'Rekonstrukcja stanu faktycznego',
+                key: '4',
+                id: '4'
+            },
+            {
+                name: 'Wniosek o uzupełnienie',
+                key: '5',
+                id: '5'
+            },
+            {
+                name: 'Ocena prawna',
+                key: '6',
+                id: '6'
+            },
+            {
+                name: 'Przygotowanie decyzji',
+                key: '7',
+                id: '7'
+            },
+            {
+                name: 'Zlecenie zwrotu',
+                key: '8',
+                id: '8'
+            },
+        ]
+    },
 ]
 
 const caseGenerator = (index: number): Case => ({
@@ -34,7 +137,7 @@ const caseGenerator = (index: number): Case => ({
     deadline: randomDays(7),
     status: pickRandom(Object.values(CaseStatus)),
     no: `Syg. /SP/KB/${index}/`,
-    type: pickRandom(caseTypes),
+    type: pickRandom(caseTypes).name,
     createDate: new Date(),
     description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut eu bibendum diam. Aenean non cursus ipsum. Quisque molestie, tellus sed tempus varius, odio mauris ornare felis, non ullamcorper dolor nibh sit amet enim. Donec varius id nibh ut luctus. Morbi id mi odio. Aenean in sapien lobortis, aliquet ante eget, tincidunt lacus. Nulla eget feugiat nunc. Nullam non sollicitudin ex. Curabitur est ligula, sagittis hendrerit leo sit amet, tincidunt dapibus justo. Curabitur vulputate nulla vel augue vestibulum interdum vel et libero.'
 })
@@ -46,7 +149,7 @@ for(let i = 0; i < 30; i++) {
 }
 
 @Injectable()
-export class MyCasesStubService implements MyCasesProvider, SingleCaseProvider {
+export class MyCasesStubService implements MyCasesProvider, SingleCaseProvider, CaseTypesProvider {
     getMyCases(): Observable<Case[]> {
         return of(cases);
     }
@@ -54,5 +157,9 @@ export class MyCasesStubService implements MyCasesProvider, SingleCaseProvider {
     getSingleCase(searchedId: string): Observable<Case> {
         const foundCase = cases.find(({ id }) => id === searchedId) || cases[0];
         return foundCase ? of(foundCase) : throwError(() => SingleCaseProvider.CASE_NOT_FOUND);
+    }
+
+    getCaseTypes(): Observable<CaseType[]> {
+        return of(caseTypes);
     }
 }
