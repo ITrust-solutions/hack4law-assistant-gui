@@ -1,3 +1,11 @@
-<loa-header>
-    <h1 top-left>Archiwum</h1>
-</loa-header>
+<div class="loa-archives-route">
+    <loa-header>
+        <h1 top-left>Archiwum</h1>
+    </loa-header>
+    <div class="loa-unassigned-cases-route__content">
+        <loa-case-list class="loa-unassigned-cases-route__cases-list"
+                       (caseSelected)="displayCaseDetails($event)"
+                       [displayedColumns]="caseColumns"
+                       [data]="cases"></loa-case-list>
+    </div>
+</div>

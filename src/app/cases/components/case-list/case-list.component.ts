@@ -5,6 +5,7 @@ import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { CaseColumn } from './case-column';
 import { Case } from '../../model/case';
 import { MatSort, MatSortModule } from '@angular/material/sort';
+import { DefaultCaseColumns } from './default-case-columns';
 
 @Component({
     standalone: true,
@@ -23,7 +24,7 @@ export class CaseListComponent implements AfterViewInit {
     casesDatasource: MatTableDataSource<Case> = new MatTableDataSource<Case>([]);
 
     @ViewChild(MatSort) sort: MatSort | null = null;
-    @Input() displayedColumns: CaseColumn[] = ['no', 'type', 'status', 'deadline'];
+    @Input() displayedColumns: CaseColumn[] = DefaultCaseColumns;
     @Input() set data(cases: Case[]) {
         cases = cases || [];
         this.casesDatasource.data = cases;

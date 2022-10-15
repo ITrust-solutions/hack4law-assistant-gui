@@ -1,1 +1,1 @@
-export type CaseColumn = 'no' | 'type' | 'status' | 'deadline';
+export type CaseColumn = 'no' | 'type' | 'status' | 'deadline' | 'assignedUser';
